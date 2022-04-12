@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 
 const initialState = {
@@ -12,6 +12,14 @@ function reducer(state, action) {
     switch(action.type) {
         case 'numberAdd2':
             return {...state, number: state.number + 2}
+        case 'numberMulti7':
+            return {...state, number: state.number * 7}
+        case 'numberDiv25':
+            return {...state, number: state.number / 25}
+        case 'numberInt':
+            return {...state, number : parseInt(state.number)}  
+        case 'numberAddN': 
+            return {...state, number: action.number}
         case 'login':
             return {...state, user: {name: action.payload } }
         default:
@@ -36,10 +44,27 @@ const UseReducer = (props) => {
                 }
 
                 <span className="text">{state.number}</span>
-                <div>
-                    <button className="btn"
+                <button className="btn"
                         onClick={() => dispatch({type: 'login', payload: 'Maria'})}>
                         Login
+                </button>
+                <input
+                    type="number"
+                    className="input"
+                    onChange={(e) => dispatch({type: 'numberAddN', number: e.target.value })}
+                    />
+                <div>
+                <button className="btn"
+                        onClick={()=> dispatch({type: 'numberInt'})} >
+                        Inteiro
+                    </button>
+                    <button className="btn"
+                        onClick={()=> dispatch({type: 'numberDiv25'})} >
+                        /25
+                    </button>
+                    <button className="btn"
+                        onClick={() => dispatch({type: 'numberMulti7'})}> 
+                        * 7
                     </button>
                     <button className="btn"
                         onClick={() => dispatch({type: 'numberAdd2'})}>
